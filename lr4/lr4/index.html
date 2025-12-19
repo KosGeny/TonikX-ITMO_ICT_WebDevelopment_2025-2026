@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>Лабораторная работа №4 - Отчеты по лабораторным работам. Генне Константин, K3340</title>
+    <link href="../../css/bootstrap-3.3.7.min.css" rel="stylesheet">
+    <link href="../../css/font-awesome-4.7.0.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
+    <script src="../../js/bootstrap-3.3.7.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
+    
+    <base target="_top">
+    <script>
+      var base_url = '../..';
+      var is_top_frame = false;
+        
+        var pageToc = [
+          {title: "\u0414\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u0446\u0438\u044f \u043a \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u043e\u043d\u043d\u043e\u0439 \u0441\u0438\u0441\u0442\u0435\u043c\u0435 \u043f\u0442\u0438\u0446\u0435\u0444\u0430\u0431\u0440\u0438\u043a\u0438", url: "#_top", children: [
+              {title: "\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u0440\u043e\u0435\u043a\u0442\u0430", url: "#_2" },
+              {title: "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u043e\u0432", url: "#_3" },
+              {title: "\u0412\u044b\u0432\u043e\u0434", url: "#_12" },
+          ]},
+        ];
+
+    </script>
+    <script src="../../js/base.js"></script> 
+</head>
+
+<body>
+<script>
+if (is_top_frame) { $('body').addClass('wm-top-page'); }
+</script>
+
+
+
+<div class="container-fluid wm-page-content">
+  <a name="_top"></a>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../../lr3/lr3/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../lr3/lr3/" class="btn btn-xs btn-link">
+        Лабораторная работа
+      </a>
+    </div>
+    
+  </div>
+
+    
+
+    <h1 id="_1">Документация к информационной системе птицефабрики</h1>
+<p>Информационная система птицефабрики - это веб-приложение для автоматизации управления производственными процессами на предприятии. Система предоставляет функционал для работы с данными о курах, клетках, сотрудниках, диетах и яйценоскости, а также генерирует аналитические отчёты.</p>
+<p>Проект реализован по архитектуре клиент-сервер:<br />
+- <strong>Backend</strong>: Django + Django REST Framework + Djoser<br />
+- <strong>Frontend</strong>: Vue.js 3 + Vuetify 3  </p>
+<p>Система поддерживает ролевую модель доступа:<br />
+- <strong>Директор</strong> - доступ ко всей информации и возможностям + к аналитическим отчётам<br />
+- <strong>Сотрудник</strong> - Управление курами, клетками, диетами, породами.  </p>
+<h2 id="_2">Структура проекта</h2>
+<pre><code>poultry-farm-vue-project/
+└── frontend/                  
+    ├── src/
+    │   ├── api/               # API клиенты
+    │   ├── components/        # Переиспользуемые компоненты
+    │   ├── plugins/           # Vuetify конфигурация
+    │   ├── router/            # Маршрутизация
+    │   ├── store/             # Pinia store (аутентификация)
+    │   └── views/             # Страницы приложения
+    │       ├── auth/          # Авторизация
+    │       ├── dashboard/     # Дашборд
+    │       ├── breeds/        # Породы
+    │       ├── diets/         # Диеты
+    │       ├── hens/          # Курицы
+    │       ├── cages/         # Клетки
+    │       ├── employees/     # Сотрудники
+    │       ├── eggs/          # Яйценоскость
+    │       ├── placements/    # Размещение (курицы и сотрудники)
+    │       └── reports/       # Отчёты
+    └── public/
+</code></pre>
+<h2 id="_3">Описание интерфейсов</h2>
+<h3 id="_4">Авторизация и профиль</h3>
+<ul>
+<li><strong>Страница входа (<code>/login</code>)</strong> — форма аутентификации с валидацией  </li>
+<li><strong>Страница регистрации (<code>/register</code>)</strong> — регистрация новых пользователей  </li>
+<li><strong>Профиль пользователя (<code>/profile</code>)</strong> — редактирование личных данных и смена пароля  </li>
+</ul>
+<h3 id="_5">Дашборд</h3>
+<p>Универсальная панель управления, которая отображает доступные разделы в зависимости от роли пользователя.  </p>
+<h3 id="_6">Управление курами</h3>
+<ul>
+<li><strong>Список кур (<code>/hens</code>)</strong> — отображение живых кур с возможностью просмотра деталей</li>
+<li><strong>Детали курицы (<code>/hens/:id</code>)</strong> — информация о курице, её текущем размещении и яйценоскости за последние 30 дней</li>
+<li><strong>Поселение курицы (<code>/hen-cages</code>)</strong> — форма размещения курицы в клетку с автоматическим выселением из предыдущей клетки</li>
+</ul>
+<h3 id="_7">Управление клетками</h3>
+<ul>
+<li><strong>Список клеток (<code>/cages</code>)</strong> — просмотр всех клеток с возможностью удаления</li>
+<li><strong>Детали клетки (<code>/cages/:id</code>)</strong> — информация о клетке и текущих курах в ней</li>
+<li><strong>Закрепление клетки (<code>/employee-cages</code>)</strong> — назначение клетки сотруднику</li>
+<li><strong>Текущие закрепления</strong> — таблица активных назначений с возможностью открепления</li>
+</ul>
+<h3 id="_8">Управление персоналом</h3>
+<ul>
+<li><strong>Список сотрудников (<code>/employees</code>)</strong> — просмотр и редактирование данных о сотрудниках</li>
+<li><strong>Трудоустройство (<code>/employments</code>)</strong> — просмотр всех записей о трудоустройстве, сгруппированных по сотрудникам</li>
+<li><strong>Новое трудоустройство (<code>/employments/new</code>)</strong> — форма создания нового договора с валидацией уникальности номера договора</li>
+</ul>
+<h3 id="_9">Управление фермой</h3>
+<ul>
+<li><strong>Породы (<code>/breeds</code>)</strong> — управление породами кур</li>
+<li><strong>Диеты (<code>/diets</code>)</strong> — управление рационами питания</li>
+<li><strong>Диеты по породам (<code>/breed-diets</code>)</strong> — назначение диет породам по сезонам</li>
+</ul>
+<h3 id="_10">Яйценоскость</h3>
+<ul>
+<li><strong>Запись за сегодня (<code>/eggs/today</code>)</strong> — форма ввода яйценоскости для выбранной курицы с автоматическим сохранением сегодняшней даты</li>
+</ul>
+<h3 id="_11">Аналитические отчёты (только для директора)</h3>
+<ol>
+<li><strong>Яйценоскость по характеристикам</strong> — анализ продуктивности в зависимости от веса и возраста</li>
+<li><strong>Цех с наибольшим количеством кур</strong> — определение цеха по заданной породе</li>
+<li><strong>Средняя яйценоскость на работника</strong> — продуктивность сотрудников</li>
+<li><strong>Распределение пород по цехам</strong> — структура поголовья</li>
+<li><strong>Разница показателей пород</strong> — сравнение заявленной и фактической яйценоскости</li>
+<li><strong>Ежемесячный отчёт</strong> — агрегированные данные по всем цехам и породам</li>
+</ol>
+<h2 id="_12">Вывод</h2>
+<p>В ходе выполнения лабораторной работы была разработана полнофункциональная информационная система для птицефабрики, удовлетворяющая условию задачи. </p>
+<p>Система обеспечивает разделение доступа к функционалу между различными категориями пользователей.</p>
+<p>Было уделено внимание безопасности (аутентификация через токены, валидация данных, защита от несанкционированного доступа) и удобству использования (понятный интерфейс, валидация форм, информативные сообщения об ошибках).</p>
+
+  <br>
+    
+
+    
+    
+      
+    
+
+  <div class="row wm-article-nav-buttons" role="navigation" aria-label="navigation">
+    
+    <div class="wm-article-nav">
+      <a href="../../lr3/lr3/" class="btn btn-xs btn-default pull-left">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Previous</a><a href="../../lr3/lr3/" class="btn btn-xs btn-link">
+        Лабораторная работа
+      </a>
+    </div>
+    
+  </div>
+
+    <br>
+</div>
+
+<footer class="container-fluid wm-page-content">
+  <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a> using <a href="https://github.com/gristlabs/mkdocs-windmill">Windmill</a> theme by Grist Labs.</p>
+</footer>
+
+</body>
+</html>
